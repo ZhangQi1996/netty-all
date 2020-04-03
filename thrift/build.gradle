@@ -1,0 +1,16 @@
+plugins {
+    id "org.jruyi.thrift" version "0.4.1"
+}
+
+// 目前thrift插件存在bug慎用
+compileThrift {
+    recurse true
+    createGenFolder false
+    outputDir "$projectDir/src/main/java"
+}
+
+dependencies {
+    compile(
+            "org.apache.thrift:libthrift:0.13.0",
+    )
+}

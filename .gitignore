@@ -1,0 +1,16 @@
+.idea
+
+.gradle
+
+build/
+grpc/build/
+# 这个目录的文件可以通过插件生成
+grpc/src/main/java/com/zq/grpc/
+netty/build/
+protobuf/build/
+# 这个目录的文件可以通过插件生成
+protobuf/src/main/java/com/zq/proto/
+thrift/build/
+# 这个目录的文件可以通过插件生成(暂时存在bug)
+thrift/src/main/java/com/zq/gen_thrift
+thrift/src/main/python/rpc_proj/.idea/

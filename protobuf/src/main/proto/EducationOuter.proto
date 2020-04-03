@@ -1,0 +1,40 @@
+syntax = "proto2";
+
+package com.zq.proto;
+
+option java_package = "com.zq.proto";
+option java_outer_classname = "EducationOuter";
+
+message Student {
+    optional string name = 1;
+    optional int32 age = 2;
+    optional string grade = 3;
+}
+
+message School {
+    optional string name = 1;
+    optional string address = 2;
+    optional int32 post_number = 3;
+}
+
+message Teacher {
+    optional string name = 1;
+    optional int32 age = 2;
+    optional string position = 3;
+}
+
+message EducationUnion {
+    enum EducationType {
+        STUDENT_TYPE = 1;
+        SCHOOL_TYPE = 2;
+        TEACHER_TYPE = 3;
+    }
+
+    required EducationType type = 1;
+
+    oneof obj {
+        Student student = 2;
+        School school = 3;
+        Teacher teacher = 4;
+    }
+}

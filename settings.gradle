@@ -1,0 +1,6 @@
+rootProject.name = 'netty-all'
+include 'protobuf'
+include 'thrift'
+include 'grpc'
+include 'netty'
+

@@ -1,0 +1,45 @@
+plugins {
+    id 'com.google.protobuf' version '0.8.8'
+}
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.11.0"
+    }
+    plugins {
+        grpc {
+            artifact = 'io.grpc:protoc-gen-grpc-java:1.28.0'
+        }
+    }
+    generatedFilesBaseDir = "$projectDir/src"
+    generateProtoTasks {
+        all()*.plugins {
+            grpc {
+                outputSubDir = "java"
+            }
+        }
+    }
+}
+
+// customizing source dirs containing *.proto files
+sourceSets {
+    main {
+        proto {
+            srcDir 'src/main/proto'
+        }
+        // e.g. java {...}
+    }
+    test {
+        proto {
+            srcDir 'src/test/proto'
+        }
+    }
+}
+
+dependencies {
+    compile(
+            'io.grpc:grpc-netty-shaded:1.28.0',
+            'io.grpc:grpc-protobuf:1.28.0',
+            'io.grpc:grpc-stub:1.28.0',
+    )
+}

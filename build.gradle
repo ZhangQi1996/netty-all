@@ -1,0 +1,66 @@
+
+allprojects {
+    repositories {
+        mavenLocal()
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        maven { url 'http://maven.aliyun.com/nexus/content/repositories/jcenter' }
+        mavenCentral()
+    }
+}
+
+subprojects {
+    apply plugin: 'java'
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+    version 1.0
+
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+    }
+
+    dependencies {
+        testCompile(
+                "junit:junit:4.12"
+        )
+        compile "org.slf4j:slf4j-log4j12:1.7.30"
+    }
+
+    // 设置子工程的src目录
+    sourceSets {
+        main {
+            java {
+                srcDirs = ['src/main/java']
+            }
+            resources {
+                srcDirs = ['src/main/resources']
+            }
+        }
+        test {
+            java {
+                srcDirs = ['src/test/java']
+            }
+            resources {
+                srcDirs = ['src/test/resources']
+            }
+        }
+    }
+}
+
+//dependencies {
+//
+//    compile(
+//            "org.apache.poi:poi:3.16",
+//            "org.apache.poi:poi-ooxml:3.16",
+//            "javax.mail:mail:1.4.7",
+//            'commons-net:commons-net:3.3',
+//            'org.apache.commons:commons-dbcp2:2.1.1',
+//            'com.google.code.gson:gson:2.8.1',
+//            'org.apache.httpcomponents:httpclient:4.5.3',
+//            'org.apache.httpcomponents:httpcore:4.4.6',
+//            'com.alibaba:fastjson:1.2.12',
+//            'commons-pool:commons-pool:1.5.6',
+//            'mysql:mysql-connector-java:5.1.42',
+//            'org.apache.thrift:libthrift:0.13.0'
+//    )
+//}

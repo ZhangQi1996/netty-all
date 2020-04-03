@@ -1,0 +1,52 @@
+syntax = "proto3"; // grpc
+
+package com.zq.grpc;
+
+option java_package = "com.zq.grpc";
+option java_outer_classname = "StudentProto";
+option java_multiple_files = true;
+
+message MyRequest {
+    string username = 1;
+}
+
+message MyResponse {
+    string realName = 1;
+}
+
+message StudentResponse {
+    string name = 1;
+    int32 age = 2;
+    string city = 3;
+}
+
+message StudentAgeRequest {
+    int32 age = 1;
+}
+
+message StudentResponseList {
+    repeated StudentResponse studentResponse = 1;
+}
+
+message StreamRequest {
+    string request_info = 1;
+}
+
+message StreamResponse {
+    string response_info = 1;
+}
+
+service StudentService {
+    // 单请求，单响应
+    rpc GetRealNameByUsername(MyRequest) returns (MyResponse) {}
+    // 单请求，流响应
+    rpc GetStudentsByAge(StudentAgeRequest) returns (stream StudentResponse) {}
+    // 流请求，单响应
+    rpc GetStudentsWrapperByAges(stream StudentAgeRequest) returns (StudentResponseList) {}
+    // 流请求，流响应
+    rpc BiTalk(stream StreamRequest) returns (stream StreamResponse) {}
+}
+
+
+
+
