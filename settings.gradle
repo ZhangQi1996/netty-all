@@ -3,4 +3,6 @@ include 'protobuf'
 include 'thrift'
 include 'grpc'
 include 'netty'
+include 'nio'
+include 'utils'
 
