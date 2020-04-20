@@ -1,13 +1,11 @@
 package com.zq.nio;
 
-import com.zq.utils.Util;
+import com.zq.utils.FileUtil;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
-import java.nio.channels.FileChannel;
 import java.nio.charset.StandardCharsets;
 
 public class Test3 {
@@ -17,7 +15,7 @@ public class Test3 {
 
         byte[] bytes = new byte[512];
         int len = 0;
-        String path = Util.getFilePathByClassLoader(fileName);
+        String path = FileUtil.getFilePathByClassLoader(fileName);
 
         FileInputStream in = new FileInputStream(path);
         len = in.read(bytes);

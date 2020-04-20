@@ -1,6 +1,7 @@
 package com.zq.nio;
 
-import com.zq.utils.Util;
+
+import com.zq.utils.FileUtil;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -11,7 +12,7 @@ public class Test2 {
     public static void main(String[] args) throws IOException {
 
         FileInputStream in = new FileInputStream(
-                Util.getFilePathByClassLoader("nio_test.txt")
+                FileUtil.getFilePathByClassLoader("nio_test.txt")
         );
         FileChannel channel = in.getChannel();
         ByteBuffer buffer = ByteBuffer.allocate(512);

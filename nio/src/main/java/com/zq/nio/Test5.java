@@ -1,6 +1,6 @@
 package com.zq.nio;
 
-import com.zq.utils.Util;
+import com.zq.utils.FileUtil;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -8,8 +8,9 @@ import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
 
 public class Test5 {
+    // nio的文件锁
     public static void main(String[] args) throws IOException {
-        String path = Util.getFilePathByClassLoader("nio_test.txt");
+        String path = FileUtil.getFilePathByClassLoader("nio_test.txt");
         RandomAccessFile file = new RandomAccessFile(path, "rw");
 
         FileChannel channel = file.getChannel();

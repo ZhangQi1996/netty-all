@@ -37,6 +37,7 @@ sourceSets {
 }
 
 dependencies {
+    compile project(":utils")
     compile(
             'io.grpc:grpc-netty-shaded:1.28.0',
             'io.grpc:grpc-protobuf:1.28.0',

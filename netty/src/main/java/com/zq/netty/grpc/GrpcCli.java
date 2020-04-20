@@ -1,7 +1,7 @@
 package com.zq.netty.grpc;
 
 import com.zq.grpc.*;
-import com.zq.log.GlobalLogger;
+import com.zq.utils.LogUtil;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.stub.StreamObserver;
@@ -28,9 +28,9 @@ public class GrpcCli {
         MyResponse response = stub.getRealNameByUsername(MyRequest.newBuilder()
                 .setUsername("Phoebe").build());
 
-        GlobalLogger.LOG.info(response.getRealName());
+        LogUtil.LOG.info(response.getRealName());
 
-        GlobalLogger.LOG.info("-------------------------");
+        LogUtil.LOG.info("-------------------------");
 
         // 单req，stream rsp
 
@@ -38,10 +38,10 @@ public class GrpcCli {
                 .setAge(20).build());
 
         iterator.forEachRemaining(it -> {
-            GlobalLogger.LOG.info("cli has recved: {}", it);
+            LogUtil.LOG.info("cli has recved: {}", it);
         });
 
-        GlobalLogger.LOG.info("-------------------------");
+        LogUtil.LOG.info("-------------------------");
 
 
         // stream req，单rsp
@@ -51,18 +51,18 @@ public class GrpcCli {
             @Override
             public void onNext(StudentResponseList value) {
                 value.getStudentResponseList().forEach(it -> {
-                    GlobalLogger.LOG.info("{}", it);
+                    LogUtil.LOG.info("{}", it);
                 });
             }
 
             @Override
             public void onError(Throwable t) {
-                GlobalLogger.LOG.info("Error", t);
+                LogUtil.LOG.info("Error", t);
             }
 
             @Override
             public void onCompleted() {
-                GlobalLogger.LOG.info("completed..");
+                LogUtil.LOG.info("completed..");
                 synchronized (asyncLock) {
                     asyncLock.notifyAll();
                 }
@@ -79,23 +79,23 @@ public class GrpcCli {
             asyncLock.wait(TimeUnit.SECONDS.toMillis(5));
         }
 
-        GlobalLogger.LOG.info("------------------------------");
+        LogUtil.LOG.info("------------------------------");
 
         // stream req, stream rsp
         StreamObserver<StreamRequest> biTalk = asyncStub.biTalk(new StreamObserver<StreamResponse>() {
             @Override
             public void onNext(StreamResponse value) {
-                GlobalLogger.LOG.info(value.getResponseInfo());
+                LogUtil.LOG.info(value.getResponseInfo());
             }
 
             @Override
             public void onError(Throwable t) {
-                GlobalLogger.LOG.info("Error", t);
+                LogUtil.LOG.info("Error", t);
             }
 
             @Override
             public void onCompleted() {
-                GlobalLogger.LOG.info("completed..");
+                LogUtil.LOG.info("completed..");
                 synchronized (asyncLock) {
                     asyncLock.notifyAll();
                 }

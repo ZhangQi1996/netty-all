@@ -1,7 +1,7 @@
 package com.zq.netty.grpc;
 
 
-import com.zq.log.GlobalLogger;
+import com.zq.utils.LogUtil;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
 
@@ -15,10 +15,10 @@ public class GrpcServer {
         server = ServerBuilder.forPort(8899)
                 .addService(new StudentServiceImpl()).build().start();
 
-        GlobalLogger.LOG.info("server started...");
+        LogUtil.LOG.info("server started...");
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            GlobalLogger.LOG.info("shutdown jvm...");
+            LogUtil.LOG.info("shutdown jvm...");
             stop();
         }));
     }

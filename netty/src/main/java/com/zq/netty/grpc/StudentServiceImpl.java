@@ -1,7 +1,7 @@
 package com.zq.netty.grpc;
 
 import com.zq.grpc.*;
-import com.zq.log.GlobalLogger;
+import com.zq.utils.LogUtil;
 import io.grpc.stub.StreamObserver;
 
 import java.util.Arrays;
@@ -13,7 +13,7 @@ public class StudentServiceImpl extends StudentServiceGrpc.StudentServiceImplBas
     // one req, one rsp
     @Override
     public void getRealNameByUsername(MyRequest request, StreamObserver<MyResponse> responseObserver) {
-        GlobalLogger.LOG.info("接收到客户端信息：" + request.getUsername());
+        LogUtil.LOG.info("接收到客户端信息：" + request.getUsername());
 
         responseObserver.onNext(MyResponse.newBuilder()
                 .setRealName("David").build());
@@ -24,7 +24,7 @@ public class StudentServiceImpl extends StudentServiceGrpc.StudentServiceImplBas
     // one req, stream rsp
     @Override
     public void getStudentsByAge(StudentAgeRequest request, StreamObserver<StudentResponse> responseObserver) {
-        GlobalLogger.LOG.info("接收到客户端信息：" + request.getAge());
+        LogUtil.LOG.info("接收到客户端信息：" + request.getAge());
 
         responseObserver.onNext(StudentResponse.newBuilder()
                 .setName("张三").setAge(20).setCity("北京").build());
@@ -46,13 +46,13 @@ public class StudentServiceImpl extends StudentServiceGrpc.StudentServiceImplBas
             // 由于请求是流式地，故每当服务器端接收到一个req，就会调用一次onNext方法
             @Override
             public void onNext(StudentAgeRequest value) {
-                GlobalLogger.LOG.info("{}", value.getAge());
+                LogUtil.LOG.info("{}", value.getAge());
             }
 
             @Override
             public void onError(Throwable t) {
 
-                GlobalLogger.LOG.error("Error", t);
+                LogUtil.LOG.error("Error", t);
             }
 
             // 当所有流式req都结束的时候调用
@@ -78,7 +78,7 @@ public class StudentServiceImpl extends StudentServiceGrpc.StudentServiceImplBas
         return new StreamObserver<StreamRequest>() {
             @Override
             public void onNext(StreamRequest value) {
-                GlobalLogger.LOG.info(value.getRequestInfo());
+                LogUtil.LOG.info(value.getRequestInfo());
 
                 responseObserver.onNext(StreamResponse.newBuilder()
                         .setResponseInfo(UUID.randomUUID().toString())
@@ -87,7 +87,7 @@ public class StudentServiceImpl extends StudentServiceGrpc.StudentServiceImplBas
 
             @Override
             public void onError(Throwable t) {
-                GlobalLogger.LOG.error("Error", t);
+                LogUtil.LOG.error("Error", t);
             }
 
             @Override
